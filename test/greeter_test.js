@@ -14,6 +14,23 @@ contract("Greeter", () => {
       assert.equal(actual, expected, "greeted with 'Hello, World!'");
     })
   })
+
+  describe("owner()", () => {
+    it("returns the address of the owner", async () => {
+      const greeter = await GreeterContract.deployed();
+      const owner = await greeter.owner();
+      assert(owner, "the current owner");
+    })
+  })
+  
+  it("matches the address that originally deployed the contract", async () => {
+    const greeter = await GreeterContract.deployed();
+    const owner = await greeter.owner();
+    const exprected = accounts[0];
+
+    assert.equal(owner, exprected, "matches address used to deploy the contract");
+  })
+  
 });
 
 contract("Greeter: update greeting", () => {
